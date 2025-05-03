@@ -19,6 +19,7 @@ interface AlbumImage {
 	id: number;
 	thumb: ImageVariant;
 	raw: ImageVariant;
+	isTicked: boolean;
 }
 
 interface ImageVariant {

@@ -18,6 +18,10 @@
 		font-display: swap;
 		src: url('/fonts/InterVariable-Italic.woff2') format('woff2');
 	}
+
+	.striped {
+		background: repeating-linear-gradient(135deg, #161616, #161616 10px, #202020 10px, #202020 20px);
+	}
 }
 
 html {

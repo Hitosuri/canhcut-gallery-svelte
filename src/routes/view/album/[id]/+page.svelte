@@ -36,6 +36,9 @@
 	import shareIcon from '@iconify-icons/material-symbols/ios-share-rounded';
 	import menuIcon from '@iconify-icons/material-symbols/menu-rounded';
 	import heartcheck from '@iconify-icons/material-symbols/heart-check';
+	import kidstar from '@iconify-icons/material-symbols/kid-star';
+	import cameraIcon from '@iconify-icons/material-symbols/photo-camera-rounded';
+	import loadingIcon from '@iconify-icons/material-symbols/progress-activity';
 
 	// Types
 	import type { PageData } from './$types';
@@ -232,7 +235,8 @@
 						url: `https://home.ligmailcompany.com/images/original/${message.image.name}`,
 						width: message.image.width,
 						height: message.image.height
-					}
+					},
+					isTicked: message.is_ticked ?? false
 				},
 				...images
 			];
@@ -335,103 +339,136 @@
 		isMobileSelectOptionOpen = false;
 	}}
 />
-<!-- ResizeWatcher component that provides responsive breakpoints -->
-<ResizeWatcher let:value>
-	{#if browser}
-		<!-- Calculate the number of columns based on screen size -->
-		{@const partitions = partitionData(images, value > 2 ? 4 : value > 1 ? 3 : 2)}
 
-		<!-- Main image grid container -->
-		<div
-			class="gap relative grid {value > 2
-				? 'grid-cols-4'
-				: value > 1
-					? 'grid-cols-3'
-					: 'grid-cols-2'} gap-x-4 py-4"
-			bind:this={container}
-		>
-			<!-- Iterate through each column -->
-			{#each partitions as partition}
-				<div class="flex flex-col gap-4">
-					<!-- Iterate through each image in the column -->
-					{#each partition as item}
-						{@const selected = selectedIds.includes(item.id)}
+{#if images.length === 0}
+	<!-- Empty state with loading animation -->
+	<div class="flex min-h-[50vh] flex-col items-center justify-center py-12">
+		<!-- Loading icon with animation -->
+		<!-- <div class="mb-6 text-primary">
+			<Icon icon={loadingIcon} class="size-20 animate-spin" />
+		</div> -->
 
-						<!-- Image container with selection outline -->
-						<div
-							class="group relative block cursor-pointer overflow-hidden rounded-lg outline outline-4 -outline-offset-4 transition-all {selected
-								? 'p-2 outline-primary'
-								: 'outline-transparent'}"
-							style="aspect-ratio: {item.thumb.width / item.thumb.height};"
-						>
-							<!-- Share button (appears on hover) -->
-							<button
-								on:click|preventDefault|stopPropagation
-								type="button"
-								class="absolute bottom-3 right-16 flex size-10 items-center justify-center rounded-full border bg-white text-xl text-base-content opacity-0 shadow transition-all hover:brightness-90 group-hover:opacity-100"
-							>
-								<Icon icon={shareIcon} />
-							</button>
-
-							<!-- Download button (appears on hover) -->
-							<button
-								on:click|preventDefault|stopPropagation
-								type="button"
-								class="absolute bottom-3 right-3 flex size-10 items-center justify-center rounded-full border bg-white text-2xl text-base-content opacity-0 shadow transition-all hover:brightness-90 group-hover:opacity-100"
-							>
-								<Icon icon={downloadIcon} />
-							</button>
-
-							<!-- Selection checkbox -->
-							<div
-								class="absolute right-2 top-2 flex size-12 items-center justify-center transition-opacity {!selected
-									? 'opacity-0 group-hover:opacity-100'
-									: ''}"
-							>
-								<button
-									type="button"
-									on:click|stopPropagation|preventDefault={() => {
-										if (selected) {
-											// Remove from selection if already selected
-											selectedIds = selectedIds.filter((x) => x !== item.id);
-											return;
-										}
-
-										// Add to selection if not selected
-										selectedIds = [...selectedIds, item.id];
-									}}
-									class="rounded-full border bg-white shadow"
-								>
-									<Icon
-										icon={checkCircleIcon}
-										class="transition-all {selected
-											? 'size-8 text-primary md:size-10'
-											: 'size-10 text-stone-500/50 md:size-12'}"
-									/>
-								</button>
-							</div>
-
-							<!-- Image link that opens the lightbox -->
-							<a
-								on:click|preventDefault|stopPropagation={showLightbox}
-								href={item.raw.url}
-								class="block h-full w-full overflow-hidden rounded"
-								id="image-{item.id}"
-								data-pswp-src={item.raw.url}
-								data-pswp-width={item.raw.width}
-								data-pswp-height={item.raw.height}
-								data-id={item.id}
-							>
-								<!-- Lazy-loaded image -->
-								<img alt="" class="h-full w-full object-cover" use:lazyLoad={item.thumb.url} />
-							</a>
-						</div>
-					{/each}
-				</div>
-			{/each}
+		<!-- Camera icon -->
+		<div class="mb-4 text-primary">
+			<Icon icon={cameraIcon} class="size-16" />
 		</div>
-	{/if}
-</ResizeWatcher>
+
+		<!-- Loading message -->
+		<h2 class="text-center text-2xl font-medium text-base-content">
+			Đang đợi PTG bấm cò ra ảnh đẹp
+		</h2>
+
+		<!-- Subtitle -->
+		<p class="mt-2 text-center text-base-content/70">Ảnh sẽ xuất hiện tự động khi có ảnh mới</p>
+	</div>
+{:else}
+	<!-- ResizeWatcher component that provides responsive breakpoints -->
+	<ResizeWatcher let:value>
+		{#if browser}
+			<!-- Calculate the number of columns based on screen size -->
+			{@const partitions = partitionData(images, value > 2 ? 4 : value > 1 ? 3 : 2)}
+
+			<!-- Main image grid container -->
+			<div
+				class="gap relative grid {value > 2
+					? 'grid-cols-4'
+					: value > 1
+						? 'grid-cols-3'
+						: 'grid-cols-2'} gap-x-4 py-4"
+				bind:this={container}
+			>
+				<!-- Iterate through each column -->
+				{#each partitions as partition}
+					<div class="flex flex-col gap-4">
+						<!-- Iterate through each image in the column -->
+						{#each partition as item}
+							{@const selected = selectedIds.includes(item.id)}
+
+							<!-- Image container with selection outline -->
+							<div
+								class="group relative block cursor-pointer overflow-hidden rounded-lg outline outline-4 -outline-offset-4 transition-all {selected
+									? 'p-2 outline-primary'
+									: 'outline-transparent'}"
+								style="aspect-ratio: {item.thumb.width / item.thumb.height};"
+							>
+								{#if item.isTicked}
+									<div
+										class="striped absolute left-0 top-0 flex items-center justify-center gap-2 rounded-br-lg rounded-tl-lg border-4 border-black px-4 py-2 text-white transition-opacity group-hover:opacity-30"
+									>
+										<Icon icon={kidstar} class="size-5 text-white" />
+										<span class="text font-semibold tracking-widest">Đã chọn ảnh</span>
+									</div>
+								{/if}
+								<!-- Share button (appears on hover) -->
+								<button
+									on:click|preventDefault|stopPropagation
+									type="button"
+									class="absolute bottom-3 right-16 flex size-10 items-center justify-center rounded-full border bg-white text-xl text-base-content opacity-0 shadow transition-all hover:brightness-90 group-hover:opacity-100"
+								>
+									<Icon icon={shareIcon} />
+								</button>
+
+								<!-- Download button (appears on hover) -->
+								<button
+									on:click|preventDefault|stopPropagation
+									type="button"
+									class="absolute bottom-3 right-3 flex size-10 items-center justify-center rounded-full border bg-white text-2xl text-base-content opacity-0 shadow transition-all hover:brightness-90 group-hover:opacity-100"
+								>
+									<Icon icon={downloadIcon} />
+								</button>
+
+								<!-- Selection checkbox -->
+								<div
+									class="absolute right-2 top-2 flex size-12 items-center justify-center transition-opacity {!selected
+										? 'opacity-0 group-hover:opacity-100'
+										: ''}"
+								>
+									<button
+										type="button"
+										on:click|stopPropagation|preventDefault={() => {
+											if (selected) {
+												// Remove from selection if already selected
+												selectedIds = selectedIds.filter((x) => x !== item.id);
+												return;
+											}
+
+											// Add to selection if not selected
+											selectedIds = [...selectedIds, item.id];
+										}}
+										class="rounded-full border bg-white shadow"
+									>
+										<Icon
+											icon={checkCircleIcon}
+											class="transition-all {selected
+												? 'size-8 text-primary md:size-10'
+												: 'size-10 text-stone-500/50 md:size-12'}"
+										/>
+									</button>
+								</div>
+
+								<!-- Image link that opens the lightbox -->
+								<a
+									on:click|preventDefault|stopPropagation={showLightbox}
+									href={item.raw.url}
+									class="block h-full w-full overflow-hidden rounded"
+									id="image-{item.id}"
+									data-pswp-src={item.raw.url}
+									data-pswp-width={item.raw.width}
+									data-pswp-height={item.raw.height}
+									data-id={item.id}
+								>
+									<!-- Lazy-loaded image -->
+									<img alt="" class="h-full w-full object-cover" use:lazyLoad={item.thumb.url} />
+								</a>
+							</div>
+						{/each}
+					</div>
+				{/each}
+			</div>
+		{/if}
+	</ResizeWatcher>
+{/if}
+
 <!-- Mobile selection options bar (appears when images are selected) -->
 {#if selectedIds.length > 0}
 	<div
