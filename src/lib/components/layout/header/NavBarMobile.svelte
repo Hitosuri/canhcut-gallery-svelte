@@ -104,7 +104,7 @@
 					{/if}
 				</li>
 				<li>
-					<a href="/view/album/1" class="py-3 font-semibold" on:click={closeBottomSheet}>Album</a>
+					<a href="/view/album/DSDB53TG" class="py-3 font-semibold" on:click={closeBottomSheet}>Album</a>
 				</li>
 				<li>
 					<a href="#" class="py-3 font-semibold" on:click={closeBottomSheet}>Về chúng tôi</a>

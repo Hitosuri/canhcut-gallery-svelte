@@ -57,33 +57,36 @@
 </svg>`;
 
 	// Component state variables
-	let lightbox: PhotoSwipeLightbox;                   // PhotoSwipe lightbox instance
-	let container: HTMLDivElement;                      // Container element for the image grid
-	let emblaCarousel: EmblaCarouselType | undefined;   // Embla carousel instance for thumbnails
-	let selectedIds: number[] = [];                     // IDs of selected images
-	let isMobileSelectOptionOpen = false;               // Whether the mobile selection options menu is open
+	let images = data.images;
+	let lightbox: PhotoSwipeLightbox; // PhotoSwipe lightbox instance
+	let container: HTMLDivElement; // Container element for the image grid
+	let emblaCarousel: EmblaCarouselType | undefined; // Embla carousel instance for thumbnails
+	let selectedIds: number[] = []; // IDs of selected images
+	let isMobileSelectOptionOpen = false; // Whether the mobile selection options menu is open
+	let eventSource: EventSource;
 
 	// Initialize PhotoSwipe lightbox and thumbnail carousel when component mounts
 	onMount(() => {
 		// Create and configure the PhotoSwipe lightbox
 		lightbox = new PhotoSwipeLightbox({
-			gallery: container,              // Container element for the gallery
-			children: 'a',                   // Selector for clickable elements that open the lightbox
-			pswpModule: PhotoSwipe,          // PhotoSwipe core module
-			wheelToZoom: true,               // Enable mouse wheel zooming
-			closeSVG: closeBtnSvg,           // Custom close button SVG
-			arrowPrevSVG: arrowPrevSvg,      // Custom previous arrow SVG
-			arrowNextSVG: arrowPrevSvg,      // Custom next arrow SVG (reusing prev)
-			padding: {                       // Padding around the image in the lightbox
+			gallery: container, // Container element for the gallery
+			children: 'a', // Selector for clickable elements that open the lightbox
+			pswpModule: PhotoSwipe, // PhotoSwipe core module
+			wheelToZoom: true, // Enable mouse wheel zooming
+			closeSVG: closeBtnSvg, // Custom close button SVG
+			arrowPrevSVG: arrowPrevSvg, // Custom previous arrow SVG
+			arrowNextSVG: arrowPrevSvg, // Custom next arrow SVG (reusing prev)
+			padding: {
+				// Padding around the image in the lightbox
 				left: 16,
 				top: 16,
 				right: 16,
-				bottom: 120                  // Extra bottom padding for thumbnails
+				bottom: 120 // Extra bottom padding for thumbnails
 			},
-			loop: false,                     // Don't loop back to the first image after the last
-			preload: [0, 0],                 // Don't preload adjacent slides
-			trapFocus: false,                // Don't trap focus within the lightbox
-			returnFocus: false               // Don't return focus after closing
+			loop: false, // Don't loop back to the first image after the last
+			preload: [0, 0], // Don't preload adjacent slides
+			trapFocus: false, // Don't trap focus within the lightbox
+			returnFocus: false // Don't return focus after closing
 		});
 
 		// Clean up the carousel when the lightbox is closed
@@ -102,7 +105,7 @@
 			// Add a download button to the lightbox UI
 			lightbox.pswp?.ui?.registerElement({
 				name: 'download-button',
-				order: 8,                    // Position in the UI
+				order: 8, // Position in the UI
 				isButton: true,
 				tagName: 'button',
 				html: {
@@ -111,14 +114,13 @@
 					inner: downloadBtnSvgPath
 				},
 				onClick: (_, __, pswp) => {
-					console.log(pswp.currSlide?.data);
 					showDowloadDialog();
 				}
 			});
 
 			// Add a thumbnail carousel to the lightbox UI
 			lightbox.pswp?.ui?.registerElement({
-				appendTo: 'wrapper',         // Append to the lightbox wrapper
+				appendTo: 'wrapper', // Append to the lightbox wrapper
 				tagName: 'div',
 				name: 'thumbs',
 				onInit: (e, pswp) => {
@@ -132,7 +134,7 @@
 					});
 
 					// Create thumbnail slides for each image
-					const slides = data.images.map((image, i) => {
+					const slides = images.map((image, i) => {
 						const el = document.createElement('div');
 						el.style.aspectRatio = `${image.thumb.width / image.thumb.height}`;
 						el.className = 'thumb-slide';
@@ -149,7 +151,7 @@
 						// Create the thumbnail image element
 						const img = document.createElement('img');
 						img.className = 'thumb-img';
-						img.dataset.src = image.thumb.url;  // Use data-src for lazy loading
+						img.dataset.src = image.thumb.url; // Use data-src for lazy loading
 
 						el.appendChild(img);
 						return el;
@@ -164,16 +166,16 @@
 
 					// Initialize the Embla carousel for thumbnails
 					setTimeout(() => {
-						const startIndex = pswp.currIndex % data.images.length;
+						const startIndex = pswp.currIndex % images.length;
 
 						// Mark the current thumbnail as active
 						slides.at(startIndex)?.classList.add('active');
 
 						// Create the Embla carousel
 						emblaCarousel = EmblaCarousel(e, {
-							containScroll: false,      // Allow scrolling beyond the edges
-							startIndex,                // Start at the current image index
-							dragFree: true             // Enable free-form dragging
+							containScroll: false, // Allow scrolling beyond the edges
+							startIndex, // Start at the current image index
+							dragFree: true // Enable free-form dragging
 						});
 
 						// Lazy load thumbnails as they come into view
@@ -208,11 +210,38 @@
 
 		// Initialize the lightbox
 		lightbox.init();
+
+		const url = new URL('https://home.ligmailcompany.com/.well-known/mercure');
+		url.searchParams.append('topic', `https://chimto.com/image/update/${data.albumId}`);
+
+		eventSource = new EventSource(url);
+
+		eventSource.onmessage = (event) => {
+			const message = JSON.parse(event.data);
+
+			images = [
+				{
+					id: message.id,
+					thumb: {
+						url: `https://home.ligmailcompany.com/images/optimized/${message.image_thumb.name}`,
+						width: message.image_thumb.width,
+						height: message.image_thumb.height
+					},
+					raw: {
+						url: `https://home.ligmailcompany.com/images/original/${message.image.name}`,
+						width: message.image.width,
+						height: message.image.height
+					}
+				},
+				...images
+			];
+		};
 	});
 
 	// Clean up resources when component is destroyed
 	onDestroy(() => {
-		lightbox?.destroy();  // Destroy the PhotoSwipe lightbox instance
+		lightbox?.destroy(); // Destroy the PhotoSwipe lightbox instance
+		eventSource?.close();
 	});
 
 	/**
@@ -223,10 +252,10 @@
 	 * @param numberOfGroups - Number of columns to create (based on screen size)
 	 * @returns Array of image arrays, one per column
 	 */
-	function partitionData(numberOfGroups: number) {
+	function partitionData(images: AlbumImage[], numberOfGroups: number) {
 		// Create a copy of the images array and sort by height (tallest first)
-		const tmp = [...data.images];
-		tmp.sort((a, b) => b.thumb.height - a.thumb.height);
+		const tmp = [...images];
+		// tmp.sort((a, b) => b.thumb.height - a.thumb.height);
 
 		// Initialize empty groups (columns) and their height sums
 		let groups: (typeof tmp)[] = Array(numberOfGroups)
@@ -244,10 +273,11 @@
 			sums[index] += item.thumb.height;
 		});
 
-		// Sort images within each column by ID, then sort columns by their first image ID
-		return groups
-			.map((x) => x.sort((a, b) => a.id - b.id))
-			.sort((a, b) => (a[0]?.id ?? 0) - (b[0]?.id ?? 0));
+		groups = groups
+			.map((x) => x.sort((a, b) => b.id - a.id))
+			.sort((a, b) => (b[0]?.id ?? 0) - (a[0]?.id ?? 0));
+
+		return groups;
 	}
 
 	/**
@@ -269,7 +299,7 @@
 
 		// Get all image anchors and sort them by ID
 		const items = [...container.querySelectorAll('a')].sort(
-			(a, b) => Number(a.dataset.id) - Number(b.dataset.id)
+			(a, b) => Number(b.dataset.id) - Number(a.dataset.id)
 		);
 
 		// Create the data source for PhotoSwipe
@@ -280,7 +310,7 @@
 
 		// Open the lightbox at the index of the clicked image
 		lightbox.loadAndOpen(
-			data.images.findIndex((x) => x.id === imgId),
+			images.findIndex((x) => x.id === imgId),
 			dataSource
 		);
 	}
@@ -288,7 +318,7 @@
 
 <!-- Set the page title -->
 <svelte:head>
-	<title>Album #1</title>
+	<title>Album {data.albumId}</title>
 </svelte:head>
 
 <!-- Handle clicks outside the mobile selection options menu to close it -->
@@ -308,7 +338,7 @@
 <ResizeWatcher let:value>
 	{#if browser}
 		<!-- Calculate the number of columns based on screen size -->
-		{@const partitions = partitionData(value > 2 ? 4 : value > 1 ? 3 : 2)}
+		{@const partitions = partitionData(images, value > 2 ? 4 : value > 1 ? 3 : 2)}
 
 		<!-- Main image grid container -->
 		<div

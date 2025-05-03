@@ -50,7 +50,7 @@
 		</ul>
 	</li>
 	<li>
-		<a href="/view/album/1" class="px-4 text-sm font-semibold leading-6">Album</a>
+		<a href="/view/album/DSDB53TG" class="px-4 text-sm font-semibold leading-6">Album</a>
 	</li>
 	<li>
 		<a href="#" class="px-4 text-sm font-semibold leading-6">Về chúng tôi</a>
