@@ -49,7 +49,7 @@
 		>
 			<div class="flex h-10 items-center justify-between">
 				<div class="-my-1.5 p-1">
-					<img class="h-11 w-auto" src="/images/web logo 2.webp" alt="logo" />
+					<img class="h-11 w-auto" src="/images/weblogo2.webp" alt="logo" />
 				</div>
 				<button type="button" class="btn btn-square btn-sm" use:melt={$close}>
 					<Icon icon={closeIcon} class="text-xl" />

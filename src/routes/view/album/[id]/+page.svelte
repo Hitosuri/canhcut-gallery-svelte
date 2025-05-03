@@ -35,6 +35,7 @@
 	import checkCircleIcon from '@iconify-icons/material-symbols/check-circle-rounded';
 	import shareIcon from '@iconify-icons/material-symbols/ios-share-rounded';
 	import menuIcon from '@iconify-icons/material-symbols/menu-rounded';
+	import heartcheck from '@iconify-icons/material-symbols/heart-check';
 
 	// Types
 	import type { PageData } from './$types';
@@ -473,17 +474,17 @@
 			</div>
 
 			<!-- Desktop download options (visible on medium screens and up) -->
-			<button
+			<!-- <button
 				class="btn hidden rounded-full border-none bg-white !bg-opacity-15 text-white md:flex"
 			>
 				<Icon icon={zipIcon} class="size-8 text-white/45" />
 				<span>Download dưới dạng zip</span>
-			</button>
+			</button> -->
 			<button
 				class="btn hidden rounded-full border-none bg-white !bg-opacity-15 text-white md:flex"
 			>
-				<Icon icon={downloadIcon} class="size-8 text-white/45" />
-				<span>Download nhiều file</span>
+				<Icon icon={heartcheck} class="size-8 text-white/45" />
+				<span>Tích chọn ảnh (đang phát triển nốt)</span>
 			</button>
 
 			<!-- Mobile menu toggle button (visible on small screens) -->
@@ -499,17 +500,17 @@
 		<div>
 			{#if isMobileSelectOptionOpen}
 				<div class="flex flex-col md:hidden" transition:slide={{ duration: 200 }}>
-					<button
+					<!--<button
 						class="btn mt-2 justify-between rounded-full border-none bg-white !bg-opacity-15 text-white"
 					>
 						<Icon icon={zipIcon} class="size-8 text-white/45" />
 						<span class="flex-1 text-center">Download dưới dạng zip</span>
-					</button>
+					</button> -->
 					<button
 						class="btn mt-2 justify-between rounded-full border-none bg-white !bg-opacity-15 text-white"
 					>
-						<Icon icon={downloadIcon} class="size-8 text-white/45" />
-						<span class="flex-1 text-center">Download nhiều file</span>
+						<Icon icon={heartcheck} class="size-8 text-white/45" />
+						<span>Tích chọn ảnh (đang phát triển nốt)</span>
 					</button>
 				</div>
 			{/if}

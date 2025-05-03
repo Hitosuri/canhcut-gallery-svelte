@@ -32,10 +32,10 @@
 	];
 </script>
 
-<header class="glass navbar justify-between rounded-box px-4 py-4 shadow-none">
+<header class="glass navbar justify-between rounded-box shadow-none ">
 	<div class="flex">
 		<a href="/" class="px-1">
-			<img class="h-9 w-auto" src="/images/web logo 2.webp" alt="logo" />
+			<img class="h-10 w-auto" src="/images/weblogo2.webp" alt="logo" />
 		</a>
 	</div>
 	<NavBar {services} />

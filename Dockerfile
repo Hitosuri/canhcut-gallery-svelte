@@ -16,7 +16,7 @@ COPY --from=builder /app/build ./build
 COPY --from=builder /app/package*.json ./
 RUN npm install --omit=dev
 
-ENV PORT=3000
 
+ENV PORT=3000
 EXPOSE ${PORT}
 CMD ["node", "build"]
