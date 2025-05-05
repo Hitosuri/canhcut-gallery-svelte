@@ -1,7 +1,13 @@
+version: "3.9"
+
 services:
   web:
     build:
       context: .
       dockerfile: Dockerfile
+      args:
+        HTTP_PORT: ${HTTP_PORT}
+    environment:
+      - HTTP_PORT=${HTTP_PORT}
     ports:
-      - "3100:3100"
+      - "${HTTP_PORT:-3000}:3000"

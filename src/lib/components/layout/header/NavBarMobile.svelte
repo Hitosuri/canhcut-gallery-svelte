@@ -40,7 +40,7 @@
 		/>
 		<div
 			use:melt={$content}
-			class="fixed bottom-0 left-0 w-full rounded-t-box border bg-white p-4 shadow-lg"
+			class="fixed bottom-0 left-0 w-full rounded-t-box bg-white p-4 shadow-lg dark:bg-slate-950"
 			transition:fly={{
 				duration: 300,
 				y: 350,
@@ -51,11 +51,11 @@
 				<div class="-my-1.5 p-1">
 					<img class="h-8 w-auto" src="/images/weblogo2.webp" alt="logo" />
 				</div>
-				<button type="button" class="btn btn-square btn-sm " use:melt={$close}>
+				<button type="button" class="btn btn-square btn-sm dark:bg-slate-950" use:melt={$close}>
 					<Icon icon={closeIcon} class="text-xl" />
 				</button>
 			</div>
-			<ul class="menu mt-6 space-y-2 p-0">
+			<ul class="menu mt-6 space-y-2 p-0 dark:!text-white">
 				<li>
 					<a href="/" class="py-3 font-semibold" on:click={closeBottomSheet}>Trang chủ</a>
 				</li>
@@ -66,7 +66,7 @@
 					<button
 						use:melt={$collapseTrigger}
 						type="button"
-						class="justify-between py-3 font-semibold"
+						class="justify-between py-3 font-semibold "
 					>
 						Booking
 						<Icon
@@ -87,7 +87,7 @@
 										class="group flex cursor-pointer items-center gap-4 rounded-2xl px-4 py-3"
 									>
 										<div
-											class="flex size-11 flex-shrink-0 items-center justify-center rounded-lg bg-base-content/5 bg-white text-2xl group-active:!bg-white/10"
+											class="flex size-11 flex-shrink-0 items-center justify-center rounded-lg bg-base-content/5 bg-white dark:bg-slate-800 text-2xl group-active:!bg-white/1"
 										>
 											<Icon icon={service.icon} font-size={service.sizeInPx} />
 										</div>

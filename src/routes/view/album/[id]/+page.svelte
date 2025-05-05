@@ -393,10 +393,10 @@
 							>
 								{#if item.isTicked}
 									<div
-										class="striped absolute left-0 top-0 flex items-center justify-center gap-2 rounded-br-lg rounded-tl-lg border-4 border-black px-4 py-2 text-white transition-opacity group-hover:opacity-30"
+										class="striped absolute left-0 top-0 flex items-center justify-center gap-2 rounded-br-lg rounded-tl-lg px-3 py-2 text-white transition-opacity group-hover:opacity-30"
 									>
 										<Icon icon={kidstar} class="size-5 text-white" />
-										<span class="text font-semibold tracking-widest">Đã chọn ảnh</span>
+										<span class="text-sm font-semibold tracking-widest">Đã chọn ảnh</span>
 									</div>
 								{/if}
 								<!-- Share button (appears on hover) -->
@@ -478,7 +478,7 @@
 			y: 20,
 			easing: cubicOut
 		}}
-		class="fixed bottom-8 left-0 right-0 mx-auto w-fit rounded-[32px] bg-base-content px-2 py-2 shadow-lg sm:rounded-[40px] sm:px-4 sm:py-4"
+		class="fixed bottom-8 left-0 right-0 mx-auto w-fit rounded-[32px] bg-slate-800 px-2 py-2 shadow-lg sm:rounded-[40px] sm:px-4 sm:py-4"
 	>
 		<div class="flex items-center gap-4">
 			<!-- Clear selection button -->
