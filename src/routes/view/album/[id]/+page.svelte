@@ -478,7 +478,7 @@
 			y: 20,
 			easing: cubicOut
 		}}
-		class="fixed bottom-8 left-0 right-0 mx-auto w-fit rounded-[32px] bg-base-content px-2 py-2 shadow-lg sm:rounded-[40px] sm:px-4 sm:py-4"
+		class="fixed bottom-8 left-0 right-0 mx-auto w-fit rounded-[32px] dark:bg-slate-800 px-2 py-2 shadow-lg sm:rounded-[40px] sm:px-4 sm:py-4"
 	>
 		<div class="flex items-center gap-4">
 			<!-- Clear selection button -->
@@ -518,7 +518,7 @@
 				<span>Download dưới dạng zip</span>
 			</button> -->
 			<button
-				class="btn hidden rounded-full border-none bg-white !bg-opacity-15 text-white md:flex"
+				class="btn btn- hidden rounded-full border-none bg-white !bg-opacity-15 text-white md:flex"
 			>
 				<Icon icon={heartcheck} class="size-8 text-white/45" />
 				<span>Tích chọn ảnh (đang phát triển nốt)</span>
