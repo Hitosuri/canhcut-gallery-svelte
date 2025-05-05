@@ -66,7 +66,7 @@ export default {
 				},
 
 				darkcustom: {
-					primary: '#ffffff',
+					primary: '#142d66',
 					'primary-focus': '#ffffff',
 					'primary-content': '#ffffff',
 
@@ -85,6 +85,7 @@ export default {
 					'base-100': '#030712',
 					'base-200': '#f9fafb',
 					'base-300': '#ced3d9',
+
 					'base-content': '#ffffff',
 
 					info: '#1c92f2',

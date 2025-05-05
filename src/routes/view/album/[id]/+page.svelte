@@ -393,10 +393,10 @@
 							>
 								{#if item.isTicked}
 									<div
-										class="striped absolute left-0 top-0 flex items-center justify-center gap-2 rounded-br-lg rounded-tl-lg border-4 border-black px-4 py-2 text-white transition-opacity group-hover:opacity-30"
+										class="striped absolute left-0 top-0 flex items-center justify-center gap-2 rounded-br-lg rounded-tl-lg px-3 py-2 text-white transition-opacity group-hover:opacity-30"
 									>
 										<Icon icon={kidstar} class="size-5 text-white" />
-										<span class="text font-semibold tracking-widest">Đã chọn ảnh</span>
+										<span class="text-sm font-semibold tracking-widest">Đã chọn ảnh</span>
 									</div>
 								{/if}
 								<!-- Share button (appears on hover) -->
@@ -518,7 +518,7 @@
 				<span>Download dưới dạng zip</span>
 			</button> -->
 			<button
-				class="btn btn- hidden rounded-full border-none bg-white !bg-opacity-15 text-white md:flex"
+				class="btn hidden rounded-full border-none bg-white !bg-opacity-15 text-white md:flex"
 			>
 				<Icon icon={heartcheck} class="size-8 text-white/45" />
 				<span>Tích chọn ảnh (đang phát triển nốt)</span>
