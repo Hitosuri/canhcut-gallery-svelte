@@ -10,7 +10,7 @@
 </script>
 
 <svelte:head>
-	<title>Album không tìm thấy | Cảnh Cút Moe</title>
+	<title>Album không tìm thấy | Canhcut.moe</title>
 	<meta name="description" content="Album không tồn tại hoặc đã bị xóa" />
 </svelte:head>
 
