@@ -16,7 +16,7 @@
 	} = createMenu({ forceVisible: true });
 </script>
 
-<ul use:melt={$menubar} class="hidden gap-x-6 !p-0 lg:menu lg:menu-horizontal">
+<ul use:melt={$menubar} class="hidden gap-x-6 !p-0 lg:menu lg:menu-horizontal darkcustom-primary dark:text-white items-center">
 	<li>
 		<a href="/" class="px-4 text-sm font-semibold leading-6">Trang chủ</a>
 	</li>
@@ -27,16 +27,16 @@
 		</button>
 		<ul
 			use:melt={$menu}
-			class="z-10 hidden rounded-box border bg-white !p-4 text-sm shadow-lg lg:menu"
+			class="z-10 hidden rounded-box bg-white dark:bg-slate-950 border!p-4 text-sm shadow-lg lg:menu"
 		>
 			{#each services as service (service)}
 				<li use:melt={$item} class="group">
 					<button
 						type="button"
-						class="flex cursor-pointer items-center !gap-4 rounded-2xl p-4 leading-6 group-data-[highlighted]:bg-base-content/10"
+						class="flex cursor-pointer items-center !gap-4 rounded-2xl p-4 leading-6 group-data-[highlighted]:bg-base-content-100/10"
 					>
 						<div
-							class="flex size-11 items-center justify-center rounded-lg bg-base-content/5 text-2xl group-active:!bg-white/10 group-data-[highlighted]:bg-white"
+							class="flex size-11 items-center justify-center rounded-lg bg-base-content/5 text-2xl group-active:!bg-white/10 group-data-[highlighted]:bg-base-content/10"
 						>
 							<Icon icon={service.icon} font-size={service.sizeInPx} />
 						</div>

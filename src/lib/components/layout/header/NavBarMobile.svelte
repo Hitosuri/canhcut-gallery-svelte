@@ -26,8 +26,8 @@
 	}
 </script>
 
-<div class="menu menu-horizontal mr-2 h-10 items-center p-0 lg:hidden">
-	<button type="button" class="btn btn-sm text-xl" use:melt={$trigger}>
+<div class="menu menu-horizontal h-10 items-center p-0 lg:hidden dark:text-white">
+	<button type="button" class="text-3xl" use:melt={$trigger}>
 		<Icon icon={menuIcon} />
 	</button>
 </div>
@@ -49,9 +49,9 @@
 		>
 			<div class="flex h-10 items-center justify-between">
 				<div class="-my-1.5 p-1">
-					<img class="h-11 w-auto" src="/images/weblogo2.webp" alt="logo" />
+					<img class="h-8 w-auto" src="/images/weblogo2.webp" alt="logo" />
 				</div>
-				<button type="button" class="btn btn-square btn-sm" use:melt={$close}>
+				<button type="button" class="btn btn-square btn-sm " use:melt={$close}>
 					<Icon icon={closeIcon} class="text-xl" />
 				</button>
 			</div>
