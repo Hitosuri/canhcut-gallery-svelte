@@ -61,13 +61,13 @@
 </svg>`;
 
 	// Component state variables
-	let images = data.images;
 	let lightbox: PhotoSwipeLightbox; // PhotoSwipe lightbox instance
 	let container: HTMLDivElement; // Container element for the image grid
 	let emblaCarousel: EmblaCarouselType | undefined; // Embla carousel instance for thumbnails
-	let selectedIds: number[] = []; // IDs of selected images
 	let isMobileSelectOptionOpen = false; // Whether the mobile selection options menu is open
 	let eventSource: EventSource;
+
+	$: [images, selectedIds] = [data.images, [] as number[]];
 
 	// Initialize PhotoSwipe lightbox and thumbnail carousel when component mounts
 	onMount(() => {
@@ -403,7 +403,7 @@
 								<button
 									on:click|preventDefault|stopPropagation
 									type="button"
-									class="absolute bottom-3 right-16 flex size-10 items-center justify-center rounded-full border bg-white text-xl text-base-content dark:text-base-100 opacity-0 shadow transition-all hover:brightness-90 group-hover:opacity-100"
+									class="absolute bottom-3 right-16 flex size-10 items-center justify-center rounded-full border bg-white text-xl text-base-content opacity-0 shadow transition-all hover:brightness-90 group-hover:opacity-100 dark:text-base-100"
 								>
 									<Icon icon={shareIcon} />
 								</button>
@@ -412,7 +412,7 @@
 								<button
 									on:click|preventDefault|stopPropagation
 									type="button"
-									class="absolute bottom-3 right-3 flex size-10 items-center justify-center rounded-full border bg-white text-2xl text-base-content dark:text-base-100 opacity-0 shadow transition-all hover:brightness-90 group-hover:opacity-100"
+									class="absolute bottom-3 right-3 flex size-10 items-center justify-center rounded-full border bg-white text-2xl text-base-content opacity-0 shadow transition-all hover:brightness-90 group-hover:opacity-100 dark:text-base-100"
 								>
 									<Icon icon={downloadIcon} />
 								</button>
