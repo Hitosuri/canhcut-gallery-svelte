@@ -36,3 +36,21 @@ npm run build
 You can preview the production build with `npm run preview`.
 
 > To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+
+## Using docker with build version of the app
+
+Just use
+
+```bash
+docker compose up --build
+```
+
+## Using docker with custom HTTP ports
+
+Use the environment variables [`HTTP_PORT`], or you can just edit it the .env file.
+
+```bash
+HTTP_PORT=8000 docker compose up --build
+```
+
+
