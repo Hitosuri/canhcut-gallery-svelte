@@ -10,7 +10,7 @@
 </script>
 
 <svelte:head>
-	<title>Album không tìm thấy | Cảnh Cút Moe</title>
+	<title>Album không tìm thấy | Canhcut.moe</title>
 	<meta name="description" content="Album không tồn tại hoặc đã bị xóa" />
 </svelte:head>
 
@@ -47,7 +47,7 @@
 		<!-- Action buttons -->
 		<div class="flex flex-col gap-2 sm:flex-row sm:justify-center">
 			<a href="/view/album/DSDB53TG" class="btn btn-outline">Xem album khác</a>
-			<a href="/" class="btn btn-primary">Quay về trang chủ</a>
+			<a href="/" class="btn btn-secondary">Quay về trang chủ</a>
 		</div>
 	</div>
 </div>

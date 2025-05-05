@@ -2,14 +2,14 @@
 	import Header from '$lib/components/layout/header/Header.svelte';
 	import '../app.css';
 </script>
-
 <svelte:head>
 	<meta name="robots" content="noindex" />
 	<meta name="googlebot" content="noindex" />
 </svelte:head>
-<div class="fixed left-4 right-4 top-4 z-10 pr-scroll-bar sm:left-8 sm:right-8">
+
+<div class="fixed inset-x-0 top-0 z-10 border-b border-black/5 dark:border-white/10">
 	<Header />
 </div>
-<div class="relative z-0 mt-24 px-4 sm:px-8">
+<div class="relative z-0 px-4 pt-24 sm:px-24">
 	<slot />
 </div>

@@ -403,7 +403,7 @@
 								<button
 									on:click|preventDefault|stopPropagation
 									type="button"
-									class="absolute bottom-3 right-16 flex size-10 items-center justify-center rounded-full border bg-white text-xl text-base-content opacity-0 shadow transition-all hover:brightness-90 group-hover:opacity-100"
+									class="absolute bottom-3 right-16 flex size-10 items-center justify-center rounded-full border bg-white text-xl text-base-content dark:text-base-100 opacity-0 shadow transition-all hover:brightness-90 group-hover:opacity-100"
 								>
 									<Icon icon={shareIcon} />
 								</button>
@@ -412,7 +412,7 @@
 								<button
 									on:click|preventDefault|stopPropagation
 									type="button"
-									class="absolute bottom-3 right-3 flex size-10 items-center justify-center rounded-full border bg-white text-2xl text-base-content opacity-0 shadow transition-all hover:brightness-90 group-hover:opacity-100"
+									class="absolute bottom-3 right-3 flex size-10 items-center justify-center rounded-full border bg-white text-2xl text-base-content dark:text-base-100 opacity-0 shadow transition-all hover:brightness-90 group-hover:opacity-100"
 								>
 									<Icon icon={downloadIcon} />
 								</button>

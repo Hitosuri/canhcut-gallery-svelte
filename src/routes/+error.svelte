@@ -15,7 +15,7 @@
 </script>
 
 <svelte:head>
-	<title>Lỗi {$page.status} | Cảnh Cút Moe</title>
+	<title>Lỗi {$page.status} | Canhcut.moe</title>
 	<meta name="description" content="Đã xảy ra lỗi khi tải trang" />
 </svelte:head>
 

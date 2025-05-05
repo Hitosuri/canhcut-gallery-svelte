@@ -10,11 +10,11 @@
 	<input
 		type="text"
 		placeholder="Nhập album ID"
-		class="input input-bordered"
+		class="input input-bordered input-primary"
 		bind:value={albumId}
 	/>
 	<button
-		class="btn btn-wide bg-primary text-white"
+		class="btn btn-wide bg-secondary text-white"
 		on:click={() => {
 			goto(`/view/album/${albumId}`);
 		}}
